@@ -5,7 +5,7 @@ import {withRouter} from "react-router";
 class MovieListItem extends Component {
 
 	handleClick = () => {
-		this.props.dispatch({type: "SET_DETAIL_ID", payload: this.props.movie.id});
+		this.props.dispatch({type: "FETCH_DETAILS", payload: this.props.movie.id});
 		// add router here
 		this.props.history.push("/details");
 	}

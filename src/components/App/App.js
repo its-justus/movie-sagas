@@ -5,6 +5,7 @@ import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 // import our components
 import MovieList from "../MovieList/MovieList";
+import MovieDetails from "../MovieDetails/MovieDetails";
 
 class App extends Component {
   componentDidMount = () => {
@@ -20,6 +21,9 @@ class App extends Component {
           <Switch>
             <Route exact path="/">
               <MovieList />
+            </Route>
+            <Route exact path="/details">
+              <MovieDetails />
             </Route>
           </Switch>
         </Router>

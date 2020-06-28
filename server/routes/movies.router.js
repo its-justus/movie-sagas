@@ -21,22 +21,25 @@ router.get("/", (req, res) => {
 		})
 });
 
-// get movie genres for id
-router.get("/:id/genres", (req, res) => {
-	console.log(`ROUTE: GET /api/movies/${req.params.id}/genres`);
+// get movie details for id
+router.get("/:id/details", (req, res) => {
+	console.log(`ROUTE: GET /api/movies/${req.params.id}/details`);
 
 	// pg pool query setup
-	const queryText = `SELECT genres.name AS genre FROM movies
+	const queryText = `SELECT 
+		movies.*, ARRAY_AGG (name) genres
+		FROM movies
 		JOIN movie_genres ON movies.id = movie_genres.movie_id
 		JOIN genres ON movie_genres.genre_id = genres.id
-		WHERE movies.id = $1;`;
+		WHERE movies.id = $1
+		GROUP BY movies.id;`;
 	const queryValues = [req.params.id];
 
 	// pg pool query
 	pool.query(queryText, queryValues)
 		.then((response) => { // successful query, return rows
 			console.log("\tDB: SUCCESS, rows:", response.rowCount);
-			res.status(200).send(response.rows);
+			res.status(200).send(response.rows[0]);
 		})
 		.catch((error) => { // db error, return error
 			console.log("\tDB: ERROR:", error);
