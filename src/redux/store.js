@@ -7,6 +7,7 @@ import axios from "axios";
 // __________ ROOT SAGA __________
 function* rootSaga() {
 	yield takeEvery("FETCH_MOVIES", fetchMovies);
+	yield takeEvery("FETCH_GENRES", fetchGenres);
 }
 
 // __________ MOVIES __________
@@ -43,7 +44,13 @@ const genres = (state = [], action) => {
 
 // Genres sagas
 function* fetchGenres(action) {
-  console.log("fetchGenres saga");
+  try {
+		const res = yield axios.get(`/api/genres`);
+		yield put({type: "SET_GENRES", payload: res.data});
+	}
+	catch (error) {
+		console.log("Error fetching all movies");
+	}
 }
 
 // __________ REDUX STORE INSTANCE __________
