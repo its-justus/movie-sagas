@@ -24,8 +24,10 @@ const movies = (state = [], action) => {
 };
 
 // Movies sagas
+// Fetch movies
 function* fetchMovies(action) {
 	try {
+		// get movies from db, then set movies in store
 		const res = yield axios.get(`/api/movies`);
 		yield put({type: "SET_MOVIES", payload: res.data});
 	}
@@ -47,6 +49,7 @@ const genres = (state = [], action) => {
 // Genres sagas
 function* fetchGenres(action) {
   try {
+		// fetch genres from movies, then set genres in store
 		const res = yield axios.get(`/api/genres`);
 		yield put({type: "SET_GENRES", payload: res.data});
 	}
@@ -69,6 +72,9 @@ const details = (state = {}, action) => {
 // Fetch details
 function* fetchDetails(action) {
   try {
+		// set our details to default so we don't get any flashes of the old details
+		yield put({type: "SET_DETAILS", payload: {}});
+		// get details from DB, then set details
 		const res = yield axios.get(`/api/movies/${action.payload}/details`);
 		yield put({type: "SET_DETAILS", payload: res.data});
 	}
@@ -80,6 +86,7 @@ function* fetchDetails(action) {
 // update details
 function* updateDetails(action) {
 	try {
+		// update the database, then fetch details and movies
 		yield axios.put(`/api/movies/${action.payload.id}/details`, action.payload);
 		yield put({type: "FETCH_DETAILS", payload: action.payload.id});
 		yield put({type: "FETCH_MOVIES"});
