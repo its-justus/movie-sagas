@@ -3,7 +3,7 @@
 [ ] - Set up server routing
 	[ ] - /api/movies router
 		[ ] - GET / (get all movies)
-		[ ] - GET /:id/details (get individual movie details)
+		[ ] - GET /:id/genres (get movie genres)
 		[ ] - PUT /:id/details (update movie details)
 	[ ] - /api/genres router
 		[ ] - GET / (get all genres)
