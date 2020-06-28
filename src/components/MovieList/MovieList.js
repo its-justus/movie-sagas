@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import MovieListItem from "../MovieListItem/MovieListItem";
 
 class MovieList extends Component {
 	render(){
 		return (
 			<>
-				{this.props.movies?.map((cur, i) => <p>{cur.title}</p>)}
+				{this.props.movies?.map((cur, i) => <MovieListItem movie={cur} />)}
 			</>
 		)
 	}
