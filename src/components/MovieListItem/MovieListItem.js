@@ -3,15 +3,21 @@ import { connect } from "react-redux";
 
 class MovieListItem extends Component {
 
+	handleClick = () => {
+		this.props.dispatch({type: "SET_DETAIL_ID", payload: this.props.movie.id});
+		// add router here
+
+	}
+
 	render() {
 		const {title, poster} = this.props.movie;
 		return (
 			<>
-				<img src={poster}/>
+				<img onClick={this.handleClick} src={poster}/>
 				<h5>{title}</h5>
 			</>
 		)
 	}
 }
 
-export default MovieListItem;
+export default connect()(MovieListItem);

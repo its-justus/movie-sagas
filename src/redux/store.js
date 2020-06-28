@@ -53,6 +53,19 @@ function* fetchGenres(action) {
 	}
 }
 
+// __________ DETAILS __________
+const details = (state = null, action) => {
+  switch (action.type) {
+    case "SET_DETAIL_ID":
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+// Details sagas
+
+
 // __________ REDUX STORE INSTANCE __________
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
@@ -61,7 +74,8 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(
   combineReducers({
     movies,
-    genres,
+		genres,
+		details,
   }),
   // Add sagaMiddleware to our store
   applyMiddleware(sagaMiddleware, logger)
