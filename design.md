@@ -5,7 +5,7 @@
 		[ ] - GET / (get all movies)
 		[ ] - GET /:id/genres (get movie genres)
 		[ ] - PUT /:id/details (update movie details)
-	[ ] - /api/genres router
+	[ ] - /api/genres router [STRETCH]
 		[ ] - GET / (get all genres)
 [ ] - MovieListItem Component
 	[ ] - Movie poster
