@@ -8,7 +8,9 @@ import MovieList from "../MovieList/MovieList";
 import MovieDetails from "../MovieDetails/MovieDetails";
 import EditMovieDetails from "../EditMovieDetails/EditMovieDetails";
 
+// App is our root display component
 class App extends Component {
+  // loading the app dispatches fetch sagas to get our data from the server
   componentDidMount = () => {
     this.props.dispatch({ type: "FETCH_MOVIES" });
     this.props.dispatch({ type: "FETCH_GENRES" });
@@ -26,7 +28,7 @@ class App extends Component {
             <Route exact path="/details">
               <MovieDetails />
             </Route>
-						<Route exact path="/edit">
+            <Route exact path="/edit">
               <EditMovieDetails />
             </Route>
           </Switch>
@@ -36,4 +38,5 @@ class App extends Component {
   }
 }
 
+// connect our export to Redux so we can dispatch actions
 export default connect()(App);
