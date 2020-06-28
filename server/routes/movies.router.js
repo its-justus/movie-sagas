@@ -50,7 +50,22 @@ router.get("/:id/details", (req, res) => {
 // update movie details for id
 router.put("/:id/details", (req, res) => {
 	console.log(`ROUTE: PUT /api/movies/${req.params.id}/details`);
-	res.sendStatus(200);
+	// pg pool query setup
+	const queryText = `UPDATE movies
+		SET (title, description) = ($1, $2)
+		WHERE id = $3;`;
+	const queryValues = [req.body.title, req.body.description, req.body.id];
+
+	// pg pool query
+	pool.query(queryText, queryValues)
+		.then((response) => { // successful query, return rows
+			console.log("\tDB: SUCCESS, rows:", response.rowCount);
+			res.sendStatus(200);
+		})
+		.catch((error) => { // db error, return error
+			console.log("\tDB: ERROR:", error);
+			res.sendStatus(500);
+		})
 });
 
 module.exports = router;

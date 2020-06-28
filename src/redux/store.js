@@ -9,6 +9,7 @@ function* rootSaga() {
 	yield takeEvery("FETCH_MOVIES", fetchMovies);
 	yield takeEvery("FETCH_GENRES", fetchGenres);
 	yield takeEvery("FETCH_DETAILS", fetchDetails);
+	yield takeEvery("UPDATE_DETAILS", updateDetails);
 }
 
 // __________ MOVIES __________
@@ -65,10 +66,23 @@ const details = (state = {}, action) => {
 };
 
 // Details sagas
+// Fetch details
 function* fetchDetails(action) {
   try {
 		const res = yield axios.get(`/api/movies/${action.payload}/details`);
 		yield put({type: "SET_DETAILS", payload: res.data});
+	}
+	catch (error) {
+		console.log("Error fetching movie details");
+	}
+}
+
+// update details
+function* updateDetails(action) {
+	try {
+		yield axios.put(`/api/movies/${action.payload.id}/details`, action.payload);
+		yield put({type: "FETCH_DETAILS", payload: action.payload.id});
+		yield put({type: "FETCH_MOVIES"});
 	}
 	catch (error) {
 		console.log("Error fetching movie details");

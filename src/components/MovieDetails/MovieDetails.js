@@ -17,8 +17,8 @@ class MovieDetails extends Component {
       <>
         <button onClick={this.back}>Back to List</button>
         <button onClick={this.edit}>Edit</button>
-        <h1>{title}</h1>
         <img src={poster} />
+				<h1>{title}</h1>
         <p>{description}</p>
         <ul>
           {genres?.map((cur, i) => (
