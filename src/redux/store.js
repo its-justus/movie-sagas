@@ -2,10 +2,11 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import createSagaMiddleware from "redux-saga";
 import {takeEvery, put} from "redux-saga/effects";
 import logger from "redux-logger";
+import axios from "axios";
 
 // __________ ROOT SAGA __________
 function* rootSaga() {
-	yield takeEvery("FETCH_ALL_MOVIES", fetchMovies);
+	yield takeEvery("FETCH_MOVIES", fetchMovies);
 }
 
 // __________ MOVIES __________
@@ -21,7 +22,13 @@ const movies = (state = [], action) => {
 
 // Movies sagas
 function* fetchMovies(action) {
-  console.log("fetchMovies saga");
+	try {
+		const res = yield axios.get(`/api/movies`);
+		yield put({type: "SET_MOVIES", payload: res.data});
+	}
+	catch (error) {
+		console.log("Error fetching all movies");
+	}
 }
 
 // __________ GENRES __________
